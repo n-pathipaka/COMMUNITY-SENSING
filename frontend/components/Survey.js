@@ -1,95 +1,55 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,  Button,TextInput, Text, View } from 'react-native';
-import {SimpleSurvey} from 'react-native-simple-survey';
+import React from 'react';
+import {useState} from 'react';
+import { StyleSheet,  Button, Text, ScrollView } from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
+import RadioButton from './RadioButton';
 
-
-const questions = [
-    {
-        questionType: 'Info',
-        questionText: 'Welcome to the React Native Simple Survey Example app! Tap next to continue'
-    },
-    {
-      questionType: 'SelectionGroup',
-      questionText: 'Simple Survey also has multiple choice questions. What is your favorite pet?',
-      questionId: 'favoritePet',
-      options: [
-          {
-              optionText: 'Dogs',
-              value: 'dog'
-          },
-          {
-              optionText: 'Cats',
-              value: 'cat'
-          },
-          {
-              optionText: 'Ferrets',
-              value: 'ferret'
-          },
-      ]
-  },
-  {
-    questionType: 'NumericInput',
-    questionText: 'It also supports numeric input. Enter your favorite number here!',
-    questionId: 'favoriteNumber',
-    placeholderText: '',
-},
-    {
-        questionType: 'TextInput',
-        questionText: 'Simple Survey supports free form text input',
-        questionId: 'favoriteColor',
-        placeholderText: 'Tell me your favorite color!',
-    }
-];
-
-const renderInfoText = (infoText) => {
-    return (<Text style={styles.infoText}>{infoText}</Text>);
-  };
-
-  const renderTextInput = (onChange, value, placeholder, onBlur) => {
-    return (<TextInput
-      onChangeText={text => onChange(text)}
-      value={value}
-      placeholder={placeholder}
-      onBlur={onBlur}
-    />);
-  };
 
 export default function Survey(){
+    const emotions = [
+        { value: 'Happy'},
+        { value: 'Sad' },
+        { value: 'Anxious'}
+    ]
+
+    const locations = [
+      {value: 'Rec Center'},
+      {value: 'UMC'},
+      {value: 'CommunityCenter'}
+    ]
+    const [option, setOption] = useState(null);
+
+    // TODO(Neerab):
+    // 1. Add a submit handler for your submit button and implement the backend logic in that function
+    // 2. use Mutiple options(i.e., an array of options) for your radio buttons and questions.
+    // 3. Improve the user interface by changing the style before creating the app.
     return (
-        <SimpleSurvey
-    survey={questions}
-    selectionGroupContainerStyle={styles.selectionGroupContainer}
-    renderTextInput={renderTextInput}
-    renderInfo={renderInfoText}
-    renderNumericInput={this.renderNumericInput}
-/>
-      );
+      <ScrollView style={styles.container}>
+        <Text style={styles.question}>Choose your current mood: </Text>
+        <RadioButton data={emotions} onSelect={(value) => setOption(value)} />
+
+        <Text style={styles.question}>Where are you right now? </Text>
+        <RadioButton data={location} onSelect={(value) => setOption(value)} />
+
+        <Button 
+          title="Submit"
+          color="#841584"
+        />
+
+      </ScrollView>
+    );
 
 };
-
-const renderNumericInput = (onChange, value, placeholder, onBlur) => {
-  return (<TextInput 
-    style={styles.numericInput}
-    onChangeText={text => { onChange(text); }}
-    underlineColorAndroid={'white'}
-    placeholderTextColor={'rgba(184,184,184,1)'}
-    placeholder={placeHolder}
-    value={String(value)}
-    keyboardType={'numeric'}
-    maxLength={3}
-    onBlur={onBlur}
-  />);
-}
 
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginTop: 100,
+      height: '100%',
+      width: 'auto',
     },
-    infoText: {
-        fontSize: 10
+    question: {
+      padding: 10
     }
   });
