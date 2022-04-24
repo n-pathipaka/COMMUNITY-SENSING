@@ -5,10 +5,11 @@ import RadioButton from './RadioButton';
 import {Button, Card} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLinkProps } from '@react-navigation/native';
 
 
 
- export default function Home() {
+ export default function Home(props) {
 
     //<RadioButton data={emotions} onSelect={(value) => setOption(value)} />
 
@@ -21,6 +22,13 @@ import axios from 'axios';
     const params = JSON.stringify({
         "user_id": "neerab"
     })
+
+    const insertData = () => {
+        console.log(data)
+        console.log(options)
+        props.navigation.navigate('Submit')
+        
+    } 
 
     /*
     headers:{
@@ -73,7 +81,7 @@ import axios from 'axios';
 
     return ( 
         
-        <View style={{flex: 1,flexDirection: 'column', padding: 15}}>
+        <View style={{flex: 1,flexDirection: 'column', padding: 8}}>
             {console.log("Hello")}
             <Text> My name is neerab</Text>
         <FlatList
@@ -91,8 +99,8 @@ import axios from 'axios';
            style = {{margin:20}}
            icon  = "pencil"
            mode  = "contained"
-           //onPress = {() => }
-       > Submit </Button>
+           onPress = {() => insertData()}
+       > Submit </Button> 
        </View>
     );
   }

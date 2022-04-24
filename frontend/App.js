@@ -1,21 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Survey from './components/Survey';
-import Home  from './components/Home'
+import Home  from './components/Home';
+import Submit from './components/Submit';
 import Conntants from 'expo-constants';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 //
 // <Survey/>
 
-export default function App() {
+const Stack = createStackNavigator()
+
+function App() {
   return ( 
     <View style={style.con}>
-      <Home />
+      <Stack.Navigator>
+        <Stack.Screen name = "Home" component = {Home} />
+        <Stack.Screen name = "Submit" component = {Submit} />
+      </Stack.Navigator>
       <StatusBar style="auto" />  
     </View>
   );
 }
 
+export default () => {
+
+  return (
+     <NavigationContainer>
+       <App/>
+     </NavigationContainer>
+
+  )
+
+}
 
 const style = StyleSheet.create({
   container: {
