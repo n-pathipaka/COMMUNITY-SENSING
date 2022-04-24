@@ -273,8 +273,12 @@ def find_closest(pos):
 #### send questions to that specific user at that specific location #######
 @app.route('/get_questions', methods=['POST'])
 def questions():
+
     data = request.json
+    print(data)
     user_id = data['user_id'] #### get the student id
+    print(user_id)
+    #user_id = 'neerab'
     pos = userMostTime(get_student_data(user_id))
     place = find_closest(pos)  ### once you got the place we will send the questions with respect to survey_id
     '''
@@ -298,7 +302,11 @@ def questions():
     questions = []
 
     for i in range(len(data)):
-        questions.append({"survey_id": data.loc[i][0], "question_id": data.loc[i][1], "question": data.loc[i][2]})
+        option = data.loc[i][3]
+        opt = []
+        for j in range(len(option)):
+            opt.append({"value": option[j]})
+        questions.append({"survey_id": data.loc[i][0], "question_id": data.loc[i][1], "question": data.loc[i][2],"options": opt })
 
     
     return json.dumps(questions)
