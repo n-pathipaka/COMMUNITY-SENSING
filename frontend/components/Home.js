@@ -13,6 +13,8 @@ import { useLinkProps } from '@react-navigation/native';
 
     //<RadioButton data={emotions} onSelect={(value) => setOption(value)} />
 
+    const [backendData, setBackendData] = useState([])
+
     const[data, setQuestion] = useState([])
 
     const[options, setOption] = useState([])
@@ -63,11 +65,19 @@ import { useLinkProps } from '@react-navigation/native';
             }} */
 
     const renderData = (item) => {
+        var backendItemData = {}
+        backendItemData['qid'] = item.question_id
         return (
             <View>
           <Card style = {style.cardStyle}>
             <Text style = {{fontSize: 18}}> {item.question} </Text>
-            <RadioButton data={item.options} onSelect={(value) => setOption(value)} /> 
+            <RadioButton data={item.options} onSelect={(value) => {
+                setOption(value)
+                backendItemData['opt'] = value
+                setBackendData(existingBackendData => [...existingBackendData, backendItemData])
+            }
+            } 
+            /> 
           </Card>
           </View>
         )
