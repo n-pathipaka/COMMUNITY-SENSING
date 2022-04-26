@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "343483706443",
+    "project_id": "community-sensing-62265",
+    "storage_bucket": "community-sensing-62265.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343483706443:android:43ee709315a5f4b24ab1ce",
+        "android_client_info": {
+          "package_name": "com.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343483706443-5bqsinuk2b6nkt2vicra66vousmosrep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO65m-HHnvbdqjPlFtW3gO6MOzrD74_Ck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343483706443-5bqsinuk2b6nkt2vicra66vousmosrep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
