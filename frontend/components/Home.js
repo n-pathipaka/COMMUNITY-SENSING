@@ -19,18 +19,33 @@ import { useLinkProps } from '@react-navigation/native';
 
     const[options, setOption] = useState([])
 
+    const[survey, setSurvey]  = useState([])
+ 
     const url = 'http://10.0.0.146:5000/'
 
     const params = JSON.stringify({
         "user_id": "neerab"
     })
 
+    const sendData = () => {
+        axios.post('http://10.0.0.146:5000/get_answers', {
+            backendData,
+            survey
+        }
+           
+        )
+        .then(function(response){
+            console.log(survey)
+            props.navigation.navigate('Submit')
+         } )       
+    }
+    
+    /*
     const insertData = () => {
-        console.log(data)
-        console.log(options)
+        console.log(backendData)
         props.navigation.navigate('Submit')
         
-    } 
+    }  */
 
     /*
     headers:{
@@ -66,18 +81,20 @@ import { useLinkProps } from '@react-navigation/native';
 
     const renderData = (item) => {
         var backendItemData = {}
-        backendItemData['qid'] = item.question_id
+        
         return (
             <View>
           <Card style = {style.cardStyle}>
             <Text style = {{fontSize: 18}}> {item.question} </Text>
+            <Card style = {style.cardStyle}>
             <RadioButton data={item.options} onSelect={(value) => {
                 setOption(value)
-                backendItemData['opt'] = value
+                backendItemData[item.question_id] = value
                 setBackendData(existingBackendData => [...existingBackendData, backendItemData])
             }
             } 
             /> 
+            </Card>
           </Card>
           </View>
         )
@@ -98,6 +115,8 @@ import { useLinkProps } from '@react-navigation/native';
          data = {data}
          renderItem = {({item}) => {
              
+             setSurvey(item.survey_id)
+             
              return renderData(item)
              
          }} 
@@ -109,7 +128,7 @@ import { useLinkProps } from '@react-navigation/native';
            style = {{margin:20}}
            icon  = "pencil"
            mode  = "contained"
-           onPress = {() => insertData()}
+           onPress = {() => sendData()}
        > Submit </Button> 
        </View>
     );

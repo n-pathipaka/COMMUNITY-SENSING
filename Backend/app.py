@@ -275,7 +275,6 @@ def find_closest(pos):
 def questions():
 
     data = request.json
-    print(data)
     user_id = data['user_id'] #### get the student id
     print(user_id)
     #user_id = 'neerab'
@@ -314,7 +313,28 @@ def questions():
 
 
 
+#### send questions to that specific user at that specific location #######
+@app.route('/get_answers', methods=['POST'])
+def submit_answers():
+    print("Hello")
+    data = request.json
 
+    survey_id = data['survey']
+    answers = data['backendData']
+
+    from collections import defaultdict
+
+    value = {}
+
+    for answer in answers:
+        for key, v in answer.items():
+            value[key] = v
+        
+    for question_id, option in value.items():
+        save_answers("akhil", survey_id, question_id, option)
+        
+
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
 
