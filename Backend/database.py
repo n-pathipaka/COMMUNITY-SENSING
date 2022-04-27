@@ -286,7 +286,7 @@ def random_questions_survey():
         for j in q:
             cursor.execute("""
             INSERT INTO community_data.survey_info (survey_id, question_id, created_at)
-    VALUES(%s, %s, now()); """,((i, q)))
+    VALUES(%s, %s, now()); """,((i, j)))
             conn.commit()  
 
 
