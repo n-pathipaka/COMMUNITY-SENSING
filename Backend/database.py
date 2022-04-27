@@ -219,9 +219,6 @@ def insert_options():
     INSERT INTO community_data.question_options (question_id, "options")
 VALUES('1', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
 
-
-
-
 INSERT INTO community_data.question_options (question_id, "options")
 VALUES('2', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
 
@@ -276,7 +273,7 @@ VALUES('15', ARRAY ['Yes', 'Looking for study space', 'Checking library', 'Other
 INSERT INTO community_data.question_options (question_id, "options")
 VALUES('16', ARRAY ['Yes', 'No']);
 """)
-conn.commit()
+    conn.commit()
 
 #create_db()
 
@@ -289,11 +286,11 @@ def random_questions_survey():
         for j in q:
             cursor.execute("""
             INSERT INTO community_data.survey_info (survey_id, question_id, created_at)
-    VALUES(%s, %s, now(); """,((i, q)))
-    conn.commit()  
+    VALUES(%s, %s, now()); """,((i, q)))
+            conn.commit()  
 
 
-insert_questions()
+#insert_questions()
 
 insert_options()
 
