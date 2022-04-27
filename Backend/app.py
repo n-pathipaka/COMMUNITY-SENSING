@@ -308,7 +308,7 @@ def questions():
     
     return json.dumps(questions)
 
-@app.route('/test_data', methods=['GET'])
+@app.route('/test_data', methods=['POST', 'GET'])
 def test_data():
       p = ['neerab']
       return json.dumps(p)
