@@ -4,9 +4,11 @@ import Survey from './components/Survey';
 import Home  from './components/Home';
 import Submit from './components/Submit';
 import Conntants from 'expo-constants';
+import Main from './components/Main';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 
 //
 // <Survey/>
@@ -17,6 +19,7 @@ function App() {
   return ( 
     <View style={style.con}>
       <Stack.Navigator>
+        <Stack.Screen name = "Main" component = {Main} />
         <Stack.Screen name = "Home" component = {Home} />
         <Stack.Screen name = "Submit" component = {Submit} />
       </Stack.Navigator>

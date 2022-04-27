@@ -110,7 +110,6 @@ import { useLinkProps } from '@react-navigation/native';
         
         <View style={{flex: 1,flexDirection: 'column', padding: 8}}>
             {console.log("Hello")}
-            <Text> My name is neerab</Text>
         <FlatList
          data = {data}
          renderItem = {({item}) => {

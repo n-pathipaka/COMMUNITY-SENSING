@@ -263,7 +263,7 @@ def find_closest(pos):
 #### send questions to that specific user at that specific location #######
 @app.route('/get_questions', methods=['POST'])
 def questions():
-
+    import random
     data = request.json
     user_id = data['user_id'] #### get the student id
     print(user_id)
@@ -286,11 +286,19 @@ def questions():
     #format(val[:-1]+")")),
     data = cursor.fetchall()
 
+
+
     data = pd.DataFrame(data)
+
+    data = data.sample(frac=1)
+
+    q = random.sample(range(2,5), 1)
+
+    print(q)
 
     questions = []
 
-    for i in range(len(data)):
+    for i in range(q[0]):
         option = data.loc[i][3]
         opt = []
         for j in range(len(option)):
@@ -302,7 +310,9 @@ def questions():
 
 @app.route('/test_data', methods=['GET'])
 def test_data():
-      return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+      p = ['neerab']
+      return json.dumps(p)
+      #return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 #### send questions to that specific user at that specific location #######
 @app.route('/get_answers', methods=['POST'])

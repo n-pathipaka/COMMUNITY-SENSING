@@ -5,15 +5,17 @@ import RadioButton from './RadioButton';
 import {Button, Card} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Main from './Main';
+import Conntants from 'expo-constants';
 
-
-export default function Submit(){
+export default function Submit(props){
 
 
     return (
 
         <View  style = {style.container}>  
-            <Text style = {{fontSize:20}}> Thanks for submitting the survey </Text>
+            <Text style = {{fontSize:20}}> Thanks for submitting the survey    </Text>
+           
         </View>
     )
 
@@ -28,4 +30,9 @@ const style = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    con: {
+      flex: 1,
+      backgroundColor: '#eddfdf',
+      marginTop:Conntants.statusBarHeight
+    }
   }); 
