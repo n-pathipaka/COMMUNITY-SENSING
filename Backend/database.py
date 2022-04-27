@@ -130,10 +130,173 @@ CREATE UNIQUE INDEX idx_unique_survey_info ON COMMUNITY_DATA.survey_info USING b
           """)
     conn.commit()
 
+def insert_questions():
+    print("Adding questions")
+    cursor.execute("""
+    INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('1', 'I feel a connection with the CU Boulder community.', now());
 
 
 
-create_db()
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('2', 'I feel like I fit in at CU Boulder.', now());
 
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('3', 'I feel that I belong at CU Boulder.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('4', 'I view CU Boulder as my home during my undergraduate years.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('5', 'People on campus are generally supportive of my individual needs.', now());
+
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('6', 'There are people on campus who are genuinely interested in me as a person.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('7', 'There are people on campus who care about my future.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('8', ' At CU, I’m treated like I belong.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('9', ' I have a sense of community at CU.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('10', 'I feel valued.', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('11', 'There are people on campus who care about my future.', now());
+
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('12', ' I am proud to be a student at CU.', now());
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('13', ' I feel supported.', now());
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('14', 'Did you borrow any book in libraray', now());
+
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('15', 'Did you go to library to study with friends', now());
+
+
+INSERT INTO community_data.question_info (question_id, question, created_at)
+VALUES('16', 'Did you go to Rec to hangout with friends', now());
+
+    """)
+    conn.commit()
+
+
+def insert_options():
+    print("Adding Options")
+    cursor.execute("""
+    INSERT INTO community_data.question_options (question_id, "options")
+VALUES('1', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('2', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('3', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('4', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('5', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('6', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('7', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('8', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('9', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('10', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('11', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('12', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('13', ARRAY ['strongly disagree', 'disagree', 'somewhat disagree', 'somewhat agree', 'agree', 'strongly agree']);
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('14', ARRAY ['Yes', 'No']);
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('15', ARRAY ['Yes', 'Looking for study space', 'Checking library', 'Other']);
+
+
+INSERT INTO community_data.question_options (question_id, "options")
+VALUES('16', ARRAY ['Yes', 'No']);
+""")
+conn.commit()
+
+#create_db()
+
+import random
+
+def random_questions_survey():
+    survey = 4
+    for i in range(1, survey):
+        q = random.sample(range(1,17), 6)
+        for j in q:
+            cursor.execute("""
+            INSERT INTO community_data.survey_info (survey_id, question_id, created_at)
+    VALUES(%s, %s, now(); """,((i, q)))
+    conn.commit()  
+
+
+insert_questions()
+
+insert_options()
+
+random_questions_survey()
 
 conn.close()
