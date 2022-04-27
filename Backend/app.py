@@ -300,8 +300,9 @@ def questions():
     
     return json.dumps(questions)
 
-
-
+@app.route('/test_data', methods=['GET'])
+def submit_answers():
+      return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 #### send questions to that specific user at that specific location #######
 @app.route('/get_answers', methods=['POST'])
