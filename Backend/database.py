@@ -131,6 +131,9 @@ CREATE UNIQUE INDEX idx_unique_survey_info ON COMMUNITY_DATA.survey_info USING b
     conn.commit()
 
 
-conn.close()
+
 
 create_db()
+
+
+conn.close()
