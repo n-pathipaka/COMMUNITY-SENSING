@@ -4,8 +4,6 @@ from flask import Flask, jsonify, render_template, request
 
 
 import json
-import requests
-from urllib.parse import urlencode
 import psycopg2
 from psycopg2.extras import Json, DictCursor
 import time
@@ -15,16 +13,8 @@ import numpy as np
 import re
 import time
 from datetime import datetime, timedelta
-from flask import Flask, request, Response, jsonify, render_template
-import platform
 import io, os, sys
-import pika, redis
-import jsonpickle
-import folium
-import jinja2
-import pickle
 import pandas as pd
-import matplotlib.pyplot as plt 
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
