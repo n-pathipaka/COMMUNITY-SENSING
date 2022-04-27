@@ -1,0 +1,30 @@
+sudo apt-get install git
+
+sudo apt install nodejs
+
+sudo apt install npm
+
+npm install --global yarn
+
+
+sudo apt-get install python3
+
+sudo apt-get install python3-pip
+
+pip3 install flask
+
+pip3 install requests
+
+
+sudo apt install python3-dev libpq-dev
+
+pip3 install psycopg2
+
+
+
+
+
+
+
+
+https://github.com/n-pathipaka/COMMUNITY-SENSING.git
