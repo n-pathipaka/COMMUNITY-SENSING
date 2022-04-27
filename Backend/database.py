@@ -292,7 +292,7 @@ def random_questions_survey():
 
 #insert_questions()
 
-insert_options()
+#insert_options()
 
 random_questions_survey()
 
