@@ -6,7 +6,7 @@ import {Button, Card} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLinkProps } from '@react-navigation/native';
-
+//import DeviceInfo from 'react-native-device-info';
 
 
  export default function Home(props) {
@@ -20,17 +20,27 @@ import { useLinkProps } from '@react-navigation/native';
     const[options, setOption] = useState([])
 
     const[survey, setSurvey]  = useState([])
+
+    const[user, setUserId] = useState([])
+
+    const[noofquestions, setNumber] = useState([])
  
     const url = 'http://10.0.0.146:5000/'
 
-    const params = JSON.stringify({
-        "user_id": "neerab"
-    })
+    const [deviceId, setDeviceId] = useState([]);
+
+    const getdeviceId = () => {
+        var uniqueId = DeviceInfo.getUniqueId();
+        console.log(uniqueId);
+        setDeviceId(uniqueId);
+    };
 
     const sendData = () => {
-        axios.post('http://10.0.0.146:5000/get_answers', {
+        axios.post('http://10.201.84.112:5000/get_answers', {
             backendData,
-            survey
+            survey,
+            user,
+            noofquestions
         }
            
         )
@@ -54,7 +64,7 @@ import { useLinkProps } from '@react-navigation/native';
             body: JSON.stringify({user_id:'neerab'}) */
 
     useEffect(() => {
-        axios.post('http://10.0.0.146:5000/get_questions', {
+        axios.post('http://10.201.84.112:5000/get_questions', {
             user_id : "neerab"
         })
         .then( function(response){
@@ -109,16 +119,18 @@ import { useLinkProps } from '@react-navigation/native';
     return ( 
         
         <View style={{flex: 1,flexDirection: 'column', padding: 8}}>
+            {getdeviceId}
             {console.log("Hello")}
         <FlatList
          data = {data}
          renderItem = {({item}) => {
              
              setSurvey(item.survey_id)
-             
+             setNumber(item.num)
+             setUserId("neerab")
              return renderData(item)
              
-         }} 
+         }}     
          keyExtractor = {item => `${item.question_id}`}
      
        />
@@ -127,7 +139,8 @@ import { useLinkProps } from '@react-navigation/native';
            style = {{margin:20}}
            icon  = "pencil"
            mode  = "contained"
-           onPress = {() => sendData()}
+           onPress = {() => {
+            sendData()}}
        > Submit </Button> 
        </View>
     );

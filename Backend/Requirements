@@ -20,11 +20,20 @@ sudo apt install python3-dev libpq-dev
 
 pip3 install psycopg2
 
+pip3 install sqlalchemy
 
+pip3 install numpy
 
+pip3 install pandas
 
+sudo apt install postgresql postgresql-contrib
 
+##sudo systemctl start postgresql.service 
 
+pip3 install sklearn
 
 
 https://github.com/n-pathipaka/COMMUNITY-SENSING.git
+
+//alter table community_data.answer_info 
+//add num varchar(255) ;

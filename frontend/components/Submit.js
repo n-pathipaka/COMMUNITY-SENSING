@@ -9,12 +9,13 @@ import Main from './Main';
 import Conntants from 'expo-constants';
 
 export default function Submit(props){
-
+    
 
     return (
 
         <View  style = {style.container}>  
             <Text style = {{fontSize:20}}> Thanks for submitting the survey    </Text>
+            { props.navigation.navigate('Main')}
            
         </View>
     )

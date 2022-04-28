@@ -71,10 +71,10 @@ closest_loc = {"Rec": -1, "Umc": -1, "EC": -1, "Farrand":-1,
 
 
 #### push data ###
-def save_answers(user_id, survey_id, question_id, answer):
+def save_answers(user_id, survey_id, question_id, answer, num):
     cursor.execute("""
-          insert into community_data.answer_info(student_id, survey_id, question_id, answer, created_at)
-          values(%s,%s,%s,%s,now());""",(user_id, survey_id, question_id, answer))
+          insert into community_data.answer_info(student_id, survey_id, question_id, answer, created_at, num)
+          values(%s,%s,%s,%s,now(), %s);""",(user_id, survey_id, question_id, answer, num))
     conn.commit()
 
 
@@ -123,13 +123,14 @@ def get_questions(survey_id):
 
 def get_student_data(user_id):
     cursor.execute("""
-                select * from community_data.student_location_info;
-                """),
+                select * from community_data.student_location_info where student_id = '{}';
+                """.format(user_id)),
 
     data = cursor.fetchall()
     
     data = pd.DataFrame(data)
-
+    if(len(data) == 0):
+        return data
     loc_data = data.loc[:,1:2]
 
     loc_data = loc_data.drop_duplicates()
@@ -261,40 +262,55 @@ def find_closest(pos):
         
 
 #### send questions to that specific user at that specific location #######
-@app.route('/get_questions', methods=['POST'])
+@app.route('/get_questions', methods=['POST', 'GET'])
 def questions():
     import random
     data = request.json
+    print("Hello")
     user_id = data['user_id'] #### get the student id
     print(user_id)
     #user_id = 'neerab'
-    pos = userMostTime(get_student_data(user_id))
-    place = find_closest(pos)  ### once you got the place we will send the questions with respect to survey_id
-    '''
-    val = "("
-    for x in place:
-        val += "'"+x+"',"
-    '''
-    cursor.execute("""
-                    select si.survey_id , qi.question_id , question, qo.options  from community_data.survey_info si 
-                    join community_data.question_info qi on si.question_id  = qi.question_id 
-                    join community_data.location_survey ls on ls.survey_id = si.survey_id 
-                    join community_data.question_options qo on qo.question_id = qi.question_id 
-                    where ls.locname = '{}' ;
-                    """.format(place))
+    sd = get_student_data(user_id)
+    print("STUDENT DTATA", len(sd))
+    if(len(sd)!=0):
+        pos = userMostTime(sd)
+        place = find_closest(pos)  ### once you got the place we will send the questions with respect to survey_id
+    
+        print(place)
+        '''
+        val = "("
+        for x in place:
+            val += "'"+x+"',"
+        '''
+        cursor.execute("""
+                        select si.survey_id , qi.question_id , question, qo.options  from community_data.survey_info si 
+                        join community_data.question_info qi on si.question_id  = qi.question_id 
+                        join community_data.location_survey ls on ls.survey_id = si.survey_id 
+                        join community_data.question_options qo on qo.question_id = qi.question_id 
+                        where ls.locname = '{}' ;
+                        """.format(place))
 
-    #format(val[:-1]+")")),
-    data = cursor.fetchall()
-
-
-
-    data = pd.DataFrame(data)
+        #format(val[:-1]+")")),
+        data = cursor.fetchall()
+        data = pd.DataFrame(data)
+    else :
+        id = random.sample(range(1,4),3)
+        cursor.execute("""
+            select si.survey_id , qi.question_id , qi.question , qo."options" from community_data.survey_info si 
+            join community_data.question_info qi on si.question_id = qi.question_id 
+            join community_data.question_options qo on qo.question_id = qi.question_id 
+            where survey_id = '{}';
+                    ;
+                    """.format(id[0]))
+        data = cursor.fetchall()
+        data = pd.DataFrame(data)
+        print(len(data))
 
     data = data.sample(frac=1)
 
-    q = random.sample(range(2,5), 1)
+    q = random.sample(range(2,len(data)), 1)
 
-    print(q)
+    print("Number of questions", q)
 
     questions = []
 
@@ -303,7 +319,7 @@ def questions():
         opt = []
         for j in range(len(option)):
             opt.append({"value": option[j]})
-        questions.append({"survey_id": data.loc[i][0], "question_id": data.loc[i][1], "question": data.loc[i][2],"options": opt })
+        questions.append({"survey_id": data.loc[i][0], "question_id": data.loc[i][1], "question": data.loc[i][2],"options": opt,"num":q })
 
     
     return json.dumps(questions)
@@ -315,13 +331,15 @@ def test_data():
       #return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 #### send questions to that specific user at that specific location #######
-@app.route('/get_answers', methods=['POST'])
+@app.route('/get_answers', methods=['POST', 'GET'])
 def submit_answers():
-    print("Hello")
     data = request.json
-
+    user_id   = data['user']
     survey_id = data['survey']
     answers = data['backendData']
+    num     = data['noofquestions']
+
+    print(user_id)
 
     from collections import defaultdict
 
@@ -332,7 +350,7 @@ def submit_answers():
             value[key] = v
         
     for question_id, option in value.items():
-        save_answers("akhil", survey_id, question_id, option)
+        save_answers(user_id, survey_id, question_id, option, num)
         
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}

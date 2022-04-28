@@ -15,6 +15,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator()
 
+const user_id = 'max'
+
 function App() {
   return ( 
     <View style={style.con}>
