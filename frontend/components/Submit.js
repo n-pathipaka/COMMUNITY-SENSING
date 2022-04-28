@@ -1,12 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
-import RadioButton from './RadioButton';
-import {Button, Card} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Main from './Main';
-import Conntants from 'expo-constants';
 
 export default function Submit(props){
     
@@ -34,6 +29,5 @@ const style = StyleSheet.create({
     con: {
       flex: 1,
       backgroundColor: '#eddfdf',
-      marginTop:Conntants.statusBarHeight
     }
   }); 

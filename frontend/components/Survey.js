@@ -1,9 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import {useState} from 'react';
 import { StyleSheet,  Button, Text, ScrollView , FlatList, View} from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
-import RadioButton from './RadioButton';
+
 import {Card} from 'react-native-paper';
 
 

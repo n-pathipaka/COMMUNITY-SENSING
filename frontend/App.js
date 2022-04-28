@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Survey from './components/Survey';
 import Home  from './components/Home';
 import Submit from './components/Submit';
 import Conntants from 'expo-constants';
@@ -25,7 +23,6 @@ function App() {
         <Stack.Screen name = "Home" component = {Home} />
         <Stack.Screen name = "Submit" component = {Submit} />
       </Stack.Navigator>
-      <StatusBar style="auto" />  
     </View>
   );
 }

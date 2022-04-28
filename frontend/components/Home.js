@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import RadioButton from './RadioButton';
@@ -6,7 +5,6 @@ import {Button, Card} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLinkProps } from '@react-navigation/native';
-//import DeviceInfo from 'react-native-device-info';
 
 
  export default function Home(props) {
@@ -30,13 +28,11 @@ import { useLinkProps } from '@react-navigation/native';
     const [deviceId, setDeviceId] = useState([]);
 
     const getdeviceId = () => {
-        var uniqueId = DeviceInfo.getUniqueId();
-        console.log(uniqueId);
-        setDeviceId(uniqueId);
+       console.log("Anuhya")
     };
 
     const sendData = () => {
-        axios.post('http://10.201.84.112:5000/get_answers', {
+        axios.post('http://35.239.141.186:5000/get_answers', {
             backendData,
             survey,
             user,
@@ -64,7 +60,7 @@ import { useLinkProps } from '@react-navigation/native';
             body: JSON.stringify({user_id:'neerab'}) */
 
     useEffect(() => {
-        axios.post('http://10.201.84.112:5000/get_questions', {
+        axios.post('http://35.239.141.186:5000/get_questions', {
             user_id : "neerab"
         })
         .then( function(response){
@@ -119,7 +115,7 @@ import { useLinkProps } from '@react-navigation/native';
     return ( 
         
         <View style={{flex: 1,flexDirection: 'column', padding: 8}}>
-            {getdeviceId}
+            { getdeviceId()}
             {console.log("Hello")}
         <FlatList
          data = {data}
@@ -134,7 +130,7 @@ import { useLinkProps } from '@react-navigation/native';
          keyExtractor = {item => `${item.question_id}`}
      
        />
-
+       
        <Button 
            style = {{margin:20}}
            icon  = "pencil"
