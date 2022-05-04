@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Main from './Main';
+import { Button } from 'react-native-paper';
+
 
 export default function Submit(props){
     
@@ -10,8 +10,15 @@ export default function Submit(props){
 
         <View  style = {style.container}>  
             <Text style = {{fontSize:20}}> Thanks for submitting the survey    </Text>
-            { props.navigation.navigate('Main')}
-           
+
+            <Button 
+           style = {{margin:20}}
+           icon  = "pencil"
+           mode  = "contained"
+           onPress = {() => {
+             props.navigation.navigate('Main')}}
+             > Return Home </Button> 
+ 
         </View>
     )
 

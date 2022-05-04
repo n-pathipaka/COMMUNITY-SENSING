@@ -8,7 +8,9 @@ import {Button, Card} from 'react-native-paper';
 export default function Main(props) {
   return ( 
     <View style={style.container}>
-        <Text style = {{fontSize:20}}> This survey is anonymus</Text>
+        <Card style = {style.cardStyle}>
+        <Text style = {{fontSize:20}}> This is a POC deployed to 10 to 15 students to study the student belonginess. This survey is anonymous.</Text>
+        </Card>
       <Button 
            style = {{margin:20}}
            icon  = "pencil"
@@ -29,5 +31,9 @@ const style = StyleSheet.create({
   con: {
     flex: 1,
     backgroundColor: '#eddfdf',
-  }
+  },
+  cardStyle : {
+    margin: 10,
+    padding: 10
+}
 }); 

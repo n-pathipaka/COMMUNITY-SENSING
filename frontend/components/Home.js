@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
+//import {useForm, Controller} from 'react-hook-form';
 import RadioButton from './RadioButton';
 import {Button, Card} from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLinkProps } from '@react-navigation/native';
+//import { useLinkProps } from '@react-navigation/native';
 
 
  export default function Home(props) {
